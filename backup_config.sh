@@ -1,27 +1,21 @@
 #!/bin/bash
-# Copies your current LazyVim config and essentials into this repo
+# Backup LazyVim config and lua folder into this repo
 
-# Directory where this script lives (your repo)
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# clean up the repo
-rm -rf "config"
-rm -rf "plugins"
+# Clean old backups
+rm -rf "$REPO_DIR/config" "$REPO_DIR/lua"
 
-# Backup destination inside the repo
+# Create backup directories
 mkdir -p "$REPO_DIR/config"
-mkdir -p "$REPO_DIR/plugins"
 
-# Copy main config files
-cp -r ~/.config/nvim/init.lua "$REPO_DIR/config/"
-cp -r ~/.config/nvim/stylua.toml "$REPO_DIR/config/"
+# Copy main config files if they exist
+[ -f ~/.config/nvim/init.lua ] && cp ~/.config/nvim/init.lua "$REPO_DIR/config/"
+[ -f ~/.config/nvim/stylua.toml ] && cp ~/.config/nvim/stylua.toml "$REPO_DIR/config/"
+[ -f ~/.config/nvim/lazy-lock.json ] && cp ~/.config/nvim/lazy-lock.json "$REPO_DIR/config/"
+[ -f ~/.config/nvim/lazyvim.json ] && cp ~/.config/nvim/lazyvim.json "$REPO_DIR/config/"
 
-# Copy lua folders for config and plugins
-cp -r ~/.config/nvim/lua/config/* "$REPO_DIR/config/"
-cp -r ~/.config/nvim/lua/plugins/* "$REPO_DIR/plugins/"
+# Copy entire lua folder if it exists
+[ -d ~/.config/nvim/lua ] && cp -r ~/.config/nvim/lua "$REPO_DIR/"
 
-# Copy LazyVim extras
-cp ~/.config/nvim/lazy-lock.json "$REPO_DIR/config/"
-cp ~/.config/nvim/lazyvim.json "$REPO_DIR/config/"
-
-echo "Local LazyVim config and extras copied into repo!"
+echo "LazyVim config and lua folder backed up to repo!"

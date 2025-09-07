@@ -8,15 +8,14 @@ if [ ! -d "$HOME/.config/nvim" ]; then
 	git clone https://github.com/LazyVim/starter ~/.config/nvim
 fi
 
-# 2. Copy main config files
-cp "$SCRIPT_DIR/config/init.lua" ~/.config/nvim/
-cp "$SCRIPT_DIR/config/stylua.toml" ~/.config/nvim/
-cp "$SCRIPT_DIR/config/lazy-lock.json" ~/.config/nvim/
-cp "$SCRIPT_DIR/config/lazyvim.json" ~/.config/nvim/
+# 2. Copy main config files if they exist
+[ -f "$SCRIPT_DIR/config/init.lua" ] && cp "$SCRIPT_DIR/config/init.lua" ~/.config/nvim/
+[ -f "$SCRIPT_DIR/config/stylua.toml" ] && cp "$SCRIPT_DIR/config/stylua.toml" ~/.config/nvim/
+[ -f "$SCRIPT_DIR/config/lazy-lock.json" ] && cp "$SCRIPT_DIR/config/lazy-lock.json" ~/.config/nvim/
+[ -f "$SCRIPT_DIR/config/lazyvim.json" ] && cp "$SCRIPT_DIR/config/lazyvim.json" ~/.config/nvim/
 
-# 3. Copy Lua folders
-cp -r "$SCRIPT_DIR/config/config" ~/.config/nvim/lua/
-cp -r "$SCRIPT_DIR/plugins" ~/.config/nvim/lua/
+# 3. Copy entire Lua folder from backup
+[ -d "$SCRIPT_DIR/lua" ] && cp -r "$SCRIPT_DIR/lua" ~/.config/nvim/
 
 # 4. Launch Neovim to install plugins
 nvim
