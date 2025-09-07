@@ -1,12 +1,12 @@
 #!/bin/bash
-# Install LazyVim using only the backed-up config from this repo
+# Full LazyVim install using only the backed-up config from this repo
 
-# Directory where this script lives (your repo)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# 1. Ensure nvim config folder exists
-mkdir -p ~/.config/nvim
-mkdir -p ~/.config/nvim/lua
+# 1. Clone LazyVim starter if not already installed
+if [ ! -d "$HOME/.config/nvim" ]; then
+	git clone https://github.com/LazyVim/starter ~/.config/nvim
+fi
 
 # 2. Copy main config files
 cp "$SCRIPT_DIR/config/init.lua" ~/.config/nvim/
