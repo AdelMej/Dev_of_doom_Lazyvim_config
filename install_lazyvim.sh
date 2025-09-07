@@ -1,15 +1,24 @@
 #!/bin/bash
-# Install LazyVim and overlay your saved config
+# Install LazyVim using only the backed-up config from this repo
 
-# 1. Install LazyVim fresh
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-
-# 2. Copy your repo config into the install
+# Directory where this script lives (your repo)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cp -r "$SCRIPT_DIR/config/"* ~/.config/nvim/lua/
-cp -r "$SCRIPT_DIR/plugins/"* ~/.config/nvim/lua/
 
-# 3. Launch nvim to install plugins
+# 1. Ensure nvim config folder exists
+mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/lua
+
+# 2. Copy main config files
+cp "$SCRIPT_DIR/config/init.lua" ~/.config/nvim/
+cp "$SCRIPT_DIR/config/stylua.toml" ~/.config/nvim/
+cp "$SCRIPT_DIR/config/lazy-lock.json" ~/.config/nvim/
+cp "$SCRIPT_DIR/config/lazyvim.json" ~/.config/nvim/
+
+# 3. Copy Lua folders
+cp -r "$SCRIPT_DIR/config/config" ~/.config/nvim/lua/
+cp -r "$SCRIPT_DIR/plugins" ~/.config/nvim/lua/
+
+# 4. Launch Neovim to install plugins
 nvim
 
-echo "LazyVim installed with your custom config!"
+echo "LazyVim installed with your repo backup config and plugins!"

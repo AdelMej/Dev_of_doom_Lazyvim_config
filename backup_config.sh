@@ -1,17 +1,23 @@
 #!/bin/bash
-# Copies your current nvim config into this repo
+# Copies your current LazyVim config and essentials into this repo
 
 # Directory where this script lives (your repo)
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Make sure the repo folders exist
+# Backup destination inside the repo
 mkdir -p "$REPO_DIR/config"
 mkdir -p "$REPO_DIR/plugins"
 
-# Copy your live nvim config
+# Copy main config files
 cp -r ~/.config/nvim/init.lua "$REPO_DIR/config/"
 cp -r ~/.config/nvim/stylua.toml "$REPO_DIR/config/"
+
+# Copy lua folders for config and plugins
 cp -r ~/.config/nvim/lua/config "$REPO_DIR/config/"
 cp -r ~/.config/nvim/lua/plugins "$REPO_DIR/plugins/"
 
-echo "Local nvim config copied into repo!"
+# Copy LazyVim extras
+cp ~/.config/nvim/lazy-lock.json "$REPO_DIR/config/"
+cp ~/.config/nvim/lazyvim.json "$REPO_DIR/config/"
+
+echo "Local LazyVim config and extras copied into repo!"
