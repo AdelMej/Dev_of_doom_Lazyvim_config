@@ -16,6 +16,7 @@ fi
 
 # 3. Copy entire Lua folder from backup
 [ -d "$SCRIPT_DIR/lua" ] && cp -r "$SCRIPT_DIR/lua" ~/.config/nvim/
+[ -d "$SCRIPT_DIR/luasnip" ] && cp -r "$SCRIPT_DIR/luasnip" ~/.config/nvim/
 
 # 4. Launch Neovim to install plugins
 nvim
