@@ -32,13 +32,42 @@ local function find_clang_format(path)
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.c,*.h,*.py",
+  pattern = "*.c,*.h",
   callback = function()
     local file = vim.fn.expand("%:p")
     local clang_file = find_clang_format(file)
     if clang_file then
       vim.fn.system("clang-format -i " .. file)
       print("Formatted " .. file .. " using " .. clang_file)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    local file = vim.fn.expand("%:p")
+    vim.b.autoformat = false
+    vim.fn.system(string.format("~/.local/share/nvim/mason/bin/flake8 %s", file))
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.py",
+  callback = function()
+    local file = vim.fn.expand("%:p")
+    local output = vim.fn.systemlist("flake8 --max-line-length=79 " .. file)
+
+    local messages = {}
+    for _, line in ipairs(output) do
+      local msg = line:match(":%d+:%d+:%s*(.*)")
+      if msg then
+        table.insert(messages, msg)
+      end
+    end
+
+    if #messages > 0 then
+      vim.api.nvim_echo({ { table.concat(messages, "\n"), "WarningMsg" } }, true, {})
     end
   end,
 })
