@@ -71,3 +71,32 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     end
   end,
 })
+
+-- some plantUML feedback shenanigans
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "*.puml",
+  callback = function(opts)
+    local file = vim.fn.expand("<afile>")
+    local cmd = { "plantuml", file }
+
+    vim.fn.jobstart(cmd, {
+      on_exit = function(_, code)
+        if code ~= 0 then
+          vim.notify("PlantUML failed for " .. file, vim.log.levels.ERROR)
+        else
+          vim.notify("PlantUML generated PNG for " .. file, vim.log.levels.INFO)
+        end
+      end,
+      stderr_buffered = true,
+      on_stderr = function(_, data)
+        if data then
+          for _, line in ipairs(data) do
+            if line ~= "" then
+              vim.notify(line, vim.log.levels.ERROR)
+            end
+          end
+        end
+      end,
+    })
+  end,
+})
