@@ -100,3 +100,11 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     })
   end,
 })
+
+-- open DBUI when sql files are open
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "sql", "mysql", "plsql" },
+  callback = function()
+    vim.cmd("DBUI")
+  end,
+})
