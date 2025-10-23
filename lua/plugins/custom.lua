@@ -7,4 +7,12 @@ return {
   { "aklt/plantuml-syntax" },
   { "tyru/open-browser.vim" },
   { "weirongxu/plantuml-previewer.vim" },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      extras = {
+        ["lang.sql"] = false,
+      },
+    },
+  },
 }

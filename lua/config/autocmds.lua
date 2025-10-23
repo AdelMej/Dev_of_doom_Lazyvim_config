@@ -101,10 +101,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
--- open DBUI when sql files are open
+-- Disable autoformatting for SQL files in LazyVim
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "sql", "mysql", "plsql" },
+  pattern = "sql",
   callback = function()
-    vim.cmd("DBUI")
+    vim.b.autoformat = false
   end,
 })
