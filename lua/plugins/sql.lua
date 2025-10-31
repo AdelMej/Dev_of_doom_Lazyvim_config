@@ -10,10 +10,7 @@ return
   config = function()
     vim.g.dbs = {
       localdb = string.format(
-        "mariadb://%s:%s@localhost/%s",
-        os.getenv("DB_USER"),
-        os.getenv("DB_PASS"),
-        os.getenv("DB_NAME")
+        "mysql://localhost/hbtn_0d_tvshows"
       ),
     }
   end,
