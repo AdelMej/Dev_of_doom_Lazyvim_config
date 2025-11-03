@@ -7,8 +7,6 @@ vim.g.loaded_sqlomni = 1
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
-vim.g.autoformat = false
-
 -- use tabs instead of spaces
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
