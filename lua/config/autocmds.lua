@@ -100,11 +100,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     })
   end,
 })
-
--- Disable autoformatting for SQL files in LazyVim
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "sql",
-  callback = function()
-    vim.b.autoformat = false
-  end,
-})
