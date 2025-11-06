@@ -8,6 +8,12 @@ return {
       lint.linters_by_ft = {
         html = { "markuplint", "vale" },
         markdown = { "markdownlint-cli2", "vale" },
+        css = { "stylelint" },
+        scss = { "stylelint" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
       }
 
       -- auto-lint on save
