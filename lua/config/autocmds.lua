@@ -7,6 +7,8 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+vim.g.lazyvim_autoformat = false
+
 -- Check if a file exists
 local function file_exists(path)
   local f = io.open(path, "r")
@@ -49,26 +51,6 @@ vim.api.nvim_create_autocmd("FileType", {
     local file = vim.fn.expand("%:p")
     vim.b.autoformat = false
     vim.fn.system(string.format("~/.local/share/nvim/mason/bin/flake8 %s", file))
-  end,
-})
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.py",
-  callback = function()
-    local file = vim.fn.expand("%:p")
-    local output = vim.fn.systemlist("flake8 --max-line-length=79 " .. file)
-
-    local messages = {}
-    for _, line in ipairs(output) do
-      local msg = line:match(":%d+:%d+:%s*(.*)")
-      if msg then
-        table.insert(messages, msg)
-      end
-    end
-
-    if #messages > 0 then
-      vim.api.nvim_echo({ { table.concat(messages, "\n"), "WarningMsg" } }, true, {})
-    end
   end,
 })
 

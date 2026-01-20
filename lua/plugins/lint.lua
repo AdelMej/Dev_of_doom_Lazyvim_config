@@ -6,6 +6,8 @@ return {
 
       -- assign linters to filetypes
       lint.linters_by_ft = {
+        htmldjango = { "djlint" },
+        python = { "flake8" },
         html = { "markuplint", "vale" },
         markdown = { "markdownlint-cli2", "vale" },
         css = { "stylelint" },
@@ -14,6 +16,8 @@ return {
         typescript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         typescriptreact = { "eslint_d" },
+        dockerfile = { "hadolint" },
+        yaml = { "yamllint" },
       }
 
       -- auto-lint on save
